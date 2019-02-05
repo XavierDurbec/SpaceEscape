@@ -1,6 +1,6 @@
 package com.excilys.formation.projet;
 
-import com.excilys.formation.projet.board.BoardMap;
+import com.excilys.formation.projet.boardMap.BoardMap;
 
 /**
  * Hello world!

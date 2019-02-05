@@ -1,4 +1,4 @@
-package com.excilys.formation.projet.board;
+package com.excilys.formation.projet.boardMap;
 
 import java.util.ArrayList;
 import java.util.List;
