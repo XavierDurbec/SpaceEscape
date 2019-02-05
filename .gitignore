@@ -117,4 +117,8 @@ buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
 
+<<<<<<< HEAD
 # End of https://www.gitignore.io/api/java,maven,intellij
+=======
+# End of https://www.gitignore.io/api/java,maven,intellij
+>>>>>>> e4006aaac66c6345d14d8ea2bc5be65e3f401287
