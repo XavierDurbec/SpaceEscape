@@ -32,4 +32,9 @@ public class Coordinate {
     public int hashCode() {
         return Objects.hash(x, y);
     }
+
+    @Override
+    public String toString() {
+        return "[" + this.x + ":" + this.y + "]";
+    }
 }

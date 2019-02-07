@@ -1,6 +1,7 @@
 package com.excilys.formation.projet.boardMap;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class BoardMap {
     private final java.util.Map<Coordinate, Room> map = new HashMap<>();
@@ -43,4 +44,11 @@ public class BoardMap {
         }
     }
 
+    public Map<Coordinate, Room> getMap() {
+        return map;
+    }
+
+    public int getLength() {
+        return length;
+    }
 }
