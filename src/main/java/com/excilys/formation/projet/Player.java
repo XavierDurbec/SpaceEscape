@@ -2,10 +2,13 @@ package com.excilys.formation.projet;
 
 import com.excilys.formation.projet.character.Character;
 
-public class Player {
+import java.util.Objects;
+
+public class Player implements Comparable<Player>{
     private final String surname;
     private Character character;
     private boolean isAnIA;
+    private boolean haveWin;
 
     public Player(String surname) {
         this(surname, false);
@@ -34,5 +37,32 @@ public class Player {
 
     public void setAnIA(boolean anIA) {
         isAnIA = anIA;
+    }
+
+    public boolean haveWin() {
+        return haveWin;
+    }
+
+    public void setWin(boolean win) {
+        this.haveWin = win;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Player player = (Player) o;
+        return surname.equals(player.surname);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(surname);
+    }
+
+
+    @Override
+    public int compareTo(Player o) {
+        return 0;
     }
 }
