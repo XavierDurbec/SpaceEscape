@@ -46,16 +46,18 @@ public class Game {
             System.out.println("********************* turn " + turn + " begin *********************" );
             for (Player player : activePlayers) {
                 playerTurn(player);
-                if(!player.getCharacter().isAlive() || player.haveWin()){
-                    this.activePlayers.remove(player);
-                }
             }
-        } while (gameOver());
+        } while (gameContinue());
+
         System.out.println("Game is over");
+        diplayWinner();
 
     }
 
-    private boolean gameOver(){
+    private void diplayWinner(){;
+        players.stream().filter(Player::haveWin).forEach(player -> System.out.println(player.getSurname() + " have win."));
+    }
+    private boolean gameContinue(){
         for (Player player : this.activePlayers){
             if(player.getCharacter() instanceof Marine){
                 return true;
@@ -67,10 +69,10 @@ public class Game {
     private void playerTurn (Player player){
         System.out.println("********************* " + player.getSurname() + " turn " + turn + " *********************");
         if(player.getCharacter().isCanAtck()){
-            System.out.println("Voulez vous attaquer ou vous déplacer? (A or M");
+            System.out.println("Do you want attack or move? (A or M)");
             Scanner sc = new Scanner(System.in);
             String entry = sc.next();
-            if(entry.equals('A')){
+            if(entry.equals("A")){
                 attack(player);
             } else {
                 move(player);
@@ -82,16 +84,17 @@ public class Game {
     }
 
     private void attack(Player player){
-        move(player);
+        displacement(player.getCharacter());
         List<Placeable> placeableList = this.map.getMap().get(player.getCharacter().getCoordinate()).getPlaceables();
+        attackPing(player.getCharacter().getCoordinate());
         for (Placeable placeable : placeableList){
             if(!(placeable instanceof Praetorian) && placeable instanceof Character){
                 Character character = (Character) placeable;
                 character.setAlive(false);
                 this.map.getMap().get(player.getCharacter().getCoordinate()).removePlaceble(placeable);
+                System.out.println(character.getName() + " is kill  by " + player.getSurname());
             }
         }
-        attackPing(player.getCharacter().getCoordinate());
     }
     
     private void move(Player player){
@@ -158,9 +161,7 @@ public class Game {
 
     private void capsuleOpening( Player player){
         if (deficientCapsuleDetected || player.getCharacter() instanceof Engineer) {
-            System.out.println("Congrate! You escaped from big giant monstruouse alien.");
-            player.setWin(true);
-            player.setCharacter(null);
+            playerEscape(player);
         } else {
             Random random = new Random();
             int detection = random.nextInt(4);
@@ -168,8 +169,17 @@ public class Game {
                 System.out.println("Bad luck, this capsule is deficient. Your salvation is in another capsule.");
                 this.map.getMap().get(player.getCharacter().getCoordinate()).setType(RoomType.DEFICIENT_CAPSULE);
                 this.deficientCapsuleDetected = true;
+            } else {
+                playerEscape(player);
             }
         }
+    }
+
+    private void playerEscape(Player player){
+        System.out.println("Congrate "+ player.getSurname() +"! You escaped from big giant monstruouse alien.");
+        player.setWin(true);
+        player.setCharacter(null);
+        this.activePlayers.remove(player);
     }
 
     private void displacement(Character character){
@@ -202,9 +212,9 @@ public class Game {
     }
 
 
-    // TODO ultra moche
 
-    /**
+
+    /** TODO: Ultra moche ET pour les déplacement a plusieur case, tenire compte des obstacles.
      * Détermine les coordonée innacessible et les enlévent de la liste.
      * @param coordinateList
      * @param character

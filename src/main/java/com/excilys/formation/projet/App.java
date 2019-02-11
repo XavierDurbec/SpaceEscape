@@ -24,7 +24,7 @@ public class App
         yan.setCharacter(new Praetorian());
         List<Player> players = new ArrayList<>();
         players.add(omar);
-        players.add(yan);
+   //     players.add(yan);
 
         Game game = new Game("test", players);
 

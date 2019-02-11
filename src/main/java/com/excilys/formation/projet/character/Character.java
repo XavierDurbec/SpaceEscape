@@ -11,8 +11,10 @@ public abstract class Character implements Placeable {
     protected Coordinate coordinate;
     protected boolean canAttack;
     protected boolean isAlive;
+    protected String name;
 
-    public Character(int movement) {
+    public Character(int movement, String name) {
+        this.name = name;
         this.movement = movement;
         isAlive = true;
     }
@@ -49,10 +51,6 @@ public abstract class Character implements Placeable {
         this.coordinate = coordinate;
     }
 
-    public String getName(){
-        return this.getClass().toString();
-    }
-
     public boolean isCanAtck() {
         return canAttack;
     }
@@ -60,6 +58,8 @@ public abstract class Character implements Placeable {
     public void setCanAtck(boolean canAtck) {
         this.canAttack = canAtck;
     }
+
+    public String getName(){ return this.name; }
 
     public List<Coordinate> whereCanMove(){
         List<Coordinate> coordinates = new ArrayList<>();
@@ -73,9 +73,5 @@ public abstract class Character implements Placeable {
             }
             return coordinates;
     }
-
-
-
-
 
 }

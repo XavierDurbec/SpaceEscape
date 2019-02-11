@@ -4,8 +4,8 @@ import com.excilys.formation.projet.character.Character;
 
 public abstract class Alien extends Character {
 
-    public Alien() {
-        super(2);
+    public Alien(String name) {
+        super(2, name);
         this.canAttack = true;
 
     }

@@ -22,6 +22,8 @@ public class BoardMap {
         this.map.get(new Coordinate(20,0)).setType(RoomType.CAPSULE);
         this.map.get(new Coordinate(10,9)).setType(RoomType.MARINE_SPAWN);
         this.marineSpawn = new Coordinate(10,9);
+        this.map.get(new Coordinate(10,7)).setType(RoomType.CAPSULE);
+
         this.map.get(new Coordinate(10,11)).setType(RoomType.ALIEN_SPAWN);
         this.alienSpawn = new Coordinate(10,11);
         this.map.get(new Coordinate(8,10)).setType(RoomType.CONNDEMNED);
