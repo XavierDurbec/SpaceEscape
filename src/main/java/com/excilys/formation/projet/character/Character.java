@@ -12,6 +12,7 @@ public abstract class Character implements Placeable {
     protected boolean canAttack;
     protected boolean isAlive;
     protected String name;
+    protected boolean isEscaped;
 
     public Character(int movement, String name) {
         this.name = name;
@@ -59,15 +60,23 @@ public abstract class Character implements Placeable {
         this.canAttack = canAtck;
     }
 
+
+    public void setEscaped(boolean escaped) {
+        isEscaped = escaped;
+    }
+
     public String getName(){ return this.name; }
 
-    public List<Coordinate> whereCanMove(){
+    public boolean isEscaped(){ return this.isEscaped; }
+
+    public List<Coordinate> whereCanMove(){ //TODO bouger dans board
         List<Coordinate> coordinates = new ArrayList<>();
             for (int x = -this.getMovement() ; x <= this.getMovement() ; x++){
                 for (int y = -this.getMovement() ; y <= this.getMovement() ; y++){
-                   int movementLength = Math.abs(x) + Math.abs(y);
-                   if(movementLength <= movement) { //TODO ajouter condition de sortie de terrain
-                       coordinates.add(new Coordinate(this.coordinate.getX() + x, this.getCoordinate().getY() + y));
+                   int movementLength = Math.abs(x) + Math.abs(y); //TODO ajouter contournement terrain impraticable
+                    Coordinate newNoordinate =new Coordinate(this.coordinate.getX() + x, this.getCoordinate().getY() + y);
+                    if(movementLength <= movement && newNoordinate.getY() >= 0 && newNoordinate.getX() >= 0) { //TODO ajouter condition de sortie de terrain
+                       coordinates.add(newNoordinate);
                    }
                 }
             }

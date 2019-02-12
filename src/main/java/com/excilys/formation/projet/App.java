@@ -22,9 +22,12 @@ public class App
         omar.setCharacter(new Engineer());
         Player yan = new Player("Yan");
         yan.setCharacter(new Praetorian());
+        Player rached = new Player("Rached");
+        rached.setCharacter(new Engineer());
         List<Player> players = new ArrayList<>();
         players.add(omar);
-   //     players.add(yan);
+        players.add(yan);
+        players.add(rached);
 
         Game game = new Game("test", players);
 

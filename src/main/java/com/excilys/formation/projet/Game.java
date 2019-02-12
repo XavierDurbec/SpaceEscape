@@ -45,7 +45,11 @@ public class Game {
             turn++;
             System.out.println("********************* turn " + turn + " begin *********************" );
             for (Player player : activePlayers) {
-                playerTurn(player);
+                if (gameContinue() && player.getCharacter().isAlive() && !player.getCharacter().isEscaped()){
+                    playerTurn(player);
+                } else {
+                    break;
+                }
             }
         } while (gameContinue());
 
@@ -60,7 +64,10 @@ public class Game {
     private boolean gameContinue(){
         for (Player player : this.activePlayers){
             if(player.getCharacter() instanceof Marine){
-                return true;
+                Marine marine = (Marine) player.getCharacter();
+                if(marine.isAlive() && !marine.isEscaped()){
+                    return true;
+                }
             }
         }
         return false;
@@ -158,7 +165,6 @@ public class Game {
         System.out.println("There is noise on " + choosingRoom);
     }
 
-
     private void capsuleOpening( Player player){
         if (deficientCapsuleDetected || player.getCharacter() instanceof Engineer) {
             playerEscape(player);
@@ -178,8 +184,7 @@ public class Game {
     private void playerEscape(Player player){
         System.out.println("Congrate "+ player.getSurname() +"! You escaped from big giant monstruouse alien.");
         player.setWin(true);
-        player.setCharacter(null);
-        this.activePlayers.remove(player);
+        player.getCharacter().setEscaped(true);
     }
 
     private void displacement(Character character){
