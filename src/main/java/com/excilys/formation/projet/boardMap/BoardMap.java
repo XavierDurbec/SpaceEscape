@@ -1,6 +1,10 @@
 package com.excilys.formation.projet.boardMap;
 
+import com.excilys.formation.projet.character.Character;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class BoardMap {
@@ -64,5 +68,53 @@ public class BoardMap {
 
     public Coordinate getMarineSpawn() {
         return marineSpawn;
+    }
+
+
+    public List<Coordinate> whereCanIGo (Character character, Coordinate coordinate, int distance, List<Coordinate> result){
+        if(isValideDestination(character,coordinate, result)){
+            result.add(coordinate);
+        }
+        if(distance <= 0){
+            return result;
+        } else {
+            List<Coordinate> valideProxyRoomList = giveValideProxyRoomList(character, coordinate, result);
+            for (Coordinate valideProxyRoom : valideProxyRoomList){
+                whereCanIGo(character, valideProxyRoom, distance-1, result);
+            }
+            return result;
+        }
+
+    }
+
+    private List<Coordinate> giveValideProxyRoomList(Character character, Coordinate coordinate, List<Coordinate> result){
+        List<Coordinate> valideProxyRoomList = new ArrayList<>();
+
+        Coordinate up = new Coordinate(coordinate.getX(),coordinate.getY()-1);
+        Coordinate right = new Coordinate(coordinate.getX()+1,coordinate.getY());
+        Coordinate down = new Coordinate(coordinate.getX(),coordinate.getY()+1);
+        Coordinate left = new Coordinate(coordinate.getX()-1,coordinate.getY());
+
+        if(isValideDestination(character, up, result)){
+            valideProxyRoomList.add(up);
+        }
+        if(isValideDestination(character, right, result)){
+            valideProxyRoomList.add(right);
+        }
+        if(isValideDestination(character, down, result)){
+            valideProxyRoomList.add(down);
+        }
+        if(isValideDestination(character, left, result)){
+            valideProxyRoomList.add(left);
+        }
+        return valideProxyRoomList;
+    }
+
+    private boolean isValideDestination(Character character, Coordinate coordinate, List<Coordinate> result){
+        if (this.map.get(coordinate).getType().equals(RoomType.CONNDEMNED) || result.contains(coordinate) || coordinate.equals(character.getCoordinate())){
+            return false;
+        } else {
+            return true;
+        }
     }
 }

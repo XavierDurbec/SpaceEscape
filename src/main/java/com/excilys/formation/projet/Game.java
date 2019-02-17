@@ -188,8 +188,9 @@ public class Game {
     }
 
     private void displacement(Character character){
-        List<Coordinate> possibleMove = character.whereCanMove();
-        possibleMove = removeImpossibleCase(possibleMove, character);
+         List<Coordinate> possibleMove = new ArrayList<>();
+         this.map.whereCanIGo(character,character.getCoordinate(), character.getMovement(), possibleMove);
+
         Scanner entry;
         Coordinate choosingMove;
         do{
@@ -216,35 +217,5 @@ public class Game {
         character.setCoordinate(choosingCoordinate);
     }
 
-
-
-
-    /** TODO: Ultra moche ET pour les déplacement a plusieur case, tenire compte des obstacles.
-     * Détermine les coordonée innacessible et les enlévent de la liste.
-     * @param coordinateList
-     * @param character
-     */
-    private List<Coordinate> removeImpossibleCase(List<Coordinate> coordinateList,Character character){
-        List<Coordinate> cleanedCoordinateList = new ArrayList<>();
-        for(Coordinate coordinate : coordinateList){
-            if (!this.map.getMap().get(coordinate).getType().equals(RoomType.CONNDEMNED)
-                    && !this.map.getMap().get(coordinate).getType().equals(RoomType.DEFICIENT_CAPSULE)
-                    && !this.map.getMap().get(coordinate).getType().equals(RoomType.USED_CAPSULE)
-                    && !coordinate.equals(character.getCoordinate())) {
-                if (character instanceof Alien) {
-                    if (!(this.map.getMap().get(coordinate).getType().equals(RoomType.MARINE_SPAWN)
-                            && !this.map.getMap().get(coordinate).getType().equals(RoomType.CAPSULE))) {
-                       cleanedCoordinateList.add(coordinate);
-                    }
-                } else if (character instanceof Marine) {
-                    if (!this.map.getMap().get(coordinate).getType().equals(RoomType.ALIEN_SPAWN)) {
-                        cleanedCoordinateList.add(coordinate);
-                    }
-                }
-            }
-
-        }
-        return cleanedCoordinateList;
-    }
 }
 

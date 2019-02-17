@@ -69,18 +69,4 @@ public abstract class Character implements Placeable {
 
     public boolean isEscaped(){ return this.isEscaped; }
 
-    public List<Coordinate> whereCanMove(){ //TODO bouger dans board
-        List<Coordinate> coordinates = new ArrayList<>();
-            for (int x = -this.getMovement() ; x <= this.getMovement() ; x++){
-                for (int y = -this.getMovement() ; y <= this.getMovement() ; y++){
-                   int movementLength = Math.abs(x) + Math.abs(y); //TODO ajouter contournement terrain impraticable
-                    Coordinate newNoordinate =new Coordinate(this.coordinate.getX() + x, this.getCoordinate().getY() + y);
-                    if(movementLength <= movement && newNoordinate.getY() >= 0 && newNoordinate.getX() >= 0) { //TODO ajouter condition de sortie de terrain
-                       coordinates.add(newNoordinate);
-                   }
-                }
-            }
-            return coordinates;
-    }
-
 }

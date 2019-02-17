@@ -9,5 +9,8 @@
         <module name="SpaceEscape" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="SpaceEscape" target="8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
