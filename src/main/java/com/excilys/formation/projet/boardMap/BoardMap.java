@@ -111,7 +111,13 @@ public class BoardMap {
     }
 
     private boolean isValideDestination(Character character, Coordinate coordinate, List<Coordinate> result){
-        if (this.map.get(coordinate).getType().equals(RoomType.CONNDEMNED) || result.contains(coordinate) || coordinate.equals(character.getCoordinate())){
+        if (coordinate.getX() < 0 ||
+                coordinate.getY() < 0 ||
+                coordinate.getX() > this.length ||
+                coordinate.getY() > this.length ||
+                result.contains(coordinate) ||
+                coordinate.equals(character.getCoordinate()) ||
+                this.map.get(coordinate).getType().equals(RoomType.CONNDEMNED) ){
             return false;
         } else {
             return true;
