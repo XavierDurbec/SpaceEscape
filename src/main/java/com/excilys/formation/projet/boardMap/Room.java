@@ -1,4 +1,4 @@
-package com.excilys.formation.projet.board;
+package com.excilys.formation.projet.boardMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +36,10 @@ public class Room {
         this.placeables.removeAll(placeables);
     }
 
+    public List<Placeable> getPlaceables() {
+        return placeables;
+    }
+
     @Override
     public String toString() {
         switch (this.type){
@@ -45,12 +49,16 @@ public class Room {
                 return ".";
             case CONNDEMNED:
                 return "*";
-            case CAPSUL:
+            case CAPSULE:
                 return "O";
             case ALIEN_SPAWN:
                 return "A";
             case MARINE_SPAWN:
                 return "M";
+            case USED_CAPSULE:
+                return "X";
+            case DEFICIENT_CAPSULE:
+                return "X";
                 default:
                     return "ERROR";
         }

@@ -1,4 +1,4 @@
-package com.excilys.formation.projet.board;
+package com.excilys.formation.projet.boardMap;
 
 import java.util.Objects;
 
@@ -31,5 +31,10 @@ public class Coordinate {
     @Override
     public int hashCode() {
         return Objects.hash(x, y);
+    }
+
+    @Override
+    public String toString() {
+        return "[" + this.x + ":" + this.y + "]";
     }
 }
