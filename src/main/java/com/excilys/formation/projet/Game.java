@@ -9,6 +9,7 @@ import com.excilys.formation.projet.character.alien.Alien;
 import com.excilys.formation.projet.character.alien.Praetorian;
 import com.excilys.formation.projet.character.marine.Engineer;
 import com.excilys.formation.projet.character.marine.Marine;
+import com.excilys.formation.projet.character.marine.Soldier;
 
 import java.util.*;
 
@@ -94,13 +95,17 @@ public class Game {
         displacement(player.getCharacter());
         List<Placeable> placeableList = this.map.getMap().get(player.getCharacter().getCoordinate()).getPlaceables();
         attackPing(player.getCharacter().getCoordinate());
+
         for (Placeable placeable : placeableList){
-            if(!(placeable instanceof Praetorian) && placeable instanceof Character){
+            if(!(placeable instanceof Praetorian) && placeable instanceof Character && !placeable.equals(player.getCharacter())){
                 Character character = (Character) placeable;
                 character.setAlive(false);
                 this.map.getMap().get(player.getCharacter().getCoordinate()).removePlaceble(placeable);
                 System.out.println(character.getName() + " is kill  by " + player.getSurname());
             }
+        }
+        if (player.getCharacter() instanceof Soldier){ // Soldier can attack only once.
+            player.getCharacter().setCanAtck(false);
         }
     }
     
@@ -208,7 +213,6 @@ public class Game {
     private static Coordinate parseToCoordinate(String coordinateString){
         String[] parse = coordinateString.split(":");
         return new Coordinate(Integer.valueOf(parse[0]), Integer.valueOf(parse[1]));// TODO si parse pas bien
-
     }
     
     private void moveCharactereTo(Character character, Coordinate choosingCoordinate){

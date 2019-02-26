@@ -1,6 +1,7 @@
 package com.excilys.formation.projet.boardMap;
 
 import com.excilys.formation.projet.character.Character;
+import com.excilys.formation.projet.character.alien.Lurker;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -116,7 +117,7 @@ public class BoardMap {
                 coordinate.getX() > this.length ||
                 coordinate.getY() > this.length ||
                 result.contains(coordinate) ||
-                coordinate.equals(character.getCoordinate()) ||
+                (coordinate.equals(character.getCoordinate()) && !(character instanceof Lurker)) ||
                 this.map.get(coordinate).getType().equals(RoomType.CONNDEMNED) ){
             return false;
         } else {
