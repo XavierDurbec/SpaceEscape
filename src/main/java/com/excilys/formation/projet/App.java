@@ -21,13 +21,13 @@ public class App
         map.displayMap();
 
         Player omar = new Player("Omar");
-        omar.setCharacter(new Engineer());
+       // omar.setCharacter(new Engineer());
         Player yan = new Player("Yan");
-        yan.setCharacter(new Praetorian());
+        //yan.setCharacter(new Praetorian());
         Player rached = new Player("Rached");
-        rached.setCharacter(new Lurker());
+       // rached.setCharacter(new Lurker());
         Player sylvain = new Player("Sylvain");
-        sylvain.setCharacter(new Soldier());
+        //sylvain.setCharacter(new Soldier());
         List<Player> players = new ArrayList<>();
         players.add(omar);
         players.add(yan);

@@ -6,6 +6,7 @@ import com.excilys.formation.projet.boardMap.Placeable;
 import com.excilys.formation.projet.boardMap.RoomType;
 import com.excilys.formation.projet.character.Character;
 import com.excilys.formation.projet.character.alien.Alien;
+import com.excilys.formation.projet.character.alien.Lurker;
 import com.excilys.formation.projet.character.alien.Praetorian;
 import com.excilys.formation.projet.character.marine.Engineer;
 import com.excilys.formation.projet.character.marine.Marine;
@@ -14,6 +15,7 @@ import com.excilys.formation.projet.character.marine.Soldier;
 import java.util.*;
 
 public class Game {
+    private static Character[] GAME_CHARACTER = new Character[]{new Lurker(), new Praetorian(), new Soldier(), new Engineer()};
 
     private String name;
     private BoardMap map;
@@ -31,7 +33,27 @@ public class Game {
 
     public Game(String name, Collection<Player> activePlayers) {
         this(name,new BoardMap(), activePlayers);
+        initGame();
+    }
 
+    /**
+     * Asigne a unique Character for each player randomly.
+     */
+    private void initGame() {
+        List<Character> characters = new ArrayList<>(Arrays.asList(GAME_CHARACTER));
+        players.stream().limit(activePlayers.size() ).forEach(player -> player.setCharacter(randomCharacter(characters)));
+    }
+
+    /**
+     * Take a Character's list, pick one to return it and remove it from the list.
+     * @param characters
+     * @return
+     */
+    private Character randomCharacter(List<Character> characters) {
+        Random random = new Random();
+        Character character = characters.get(random.nextInt(characters.size()));
+        characters.remove(character);
+        return character;
     }
 
     public void play() {
