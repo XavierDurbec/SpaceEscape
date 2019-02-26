@@ -6,13 +6,16 @@ import com.excilys.formation.projet.boardMap.Placeable;
 import com.excilys.formation.projet.boardMap.RoomType;
 import com.excilys.formation.projet.character.Character;
 import com.excilys.formation.projet.character.alien.Alien;
+import com.excilys.formation.projet.character.alien.Lurker;
 import com.excilys.formation.projet.character.alien.Praetorian;
 import com.excilys.formation.projet.character.marine.Engineer;
 import com.excilys.formation.projet.character.marine.Marine;
+import com.excilys.formation.projet.character.marine.Soldier;
 
 import java.util.*;
 
 public class Game {
+    private static Character[] GAME_CHARACTER = new Character[]{new Lurker(), new Praetorian(), new Soldier(), new Engineer()};
 
     private String name;
     private BoardMap map;
@@ -30,7 +33,27 @@ public class Game {
 
     public Game(String name, Collection<Player> activePlayers) {
         this(name,new BoardMap(), activePlayers);
+        initGame();
+    }
 
+    /**
+     * Asigne a unique Character for each player randomly.
+     */
+    private void initGame() {
+        List<Character> characters = new ArrayList<>(Arrays.asList(GAME_CHARACTER));
+        players.stream().limit(activePlayers.size() ).forEach(player -> player.setCharacter(randomCharacter(characters)));
+    }
+
+    /**
+     * Take a Character's list, pick one to return it and remove it from the list.
+     * @param characters
+     * @return
+     */
+    private Character randomCharacter(List<Character> characters) {
+        Random random = new Random();
+        Character character = characters.get(random.nextInt(characters.size()));
+        characters.remove(character);
+        return character;
     }
 
     public void play() {
@@ -94,13 +117,17 @@ public class Game {
         displacement(player.getCharacter());
         List<Placeable> placeableList = this.map.getMap().get(player.getCharacter().getCoordinate()).getPlaceables();
         attackPing(player.getCharacter().getCoordinate());
+
         for (Placeable placeable : placeableList){
-            if(!(placeable instanceof Praetorian) && placeable instanceof Character){
+            if(!(placeable instanceof Praetorian) && placeable instanceof Character && !placeable.equals(player.getCharacter())){
                 Character character = (Character) placeable;
                 character.setAlive(false);
                 this.map.getMap().get(player.getCharacter().getCoordinate()).removePlaceble(placeable);
                 System.out.println(character.getName() + " is kill  by " + player.getSurname());
             }
+        }
+        if (player.getCharacter() instanceof Soldier){ // Soldier can attack only once.
+            player.getCharacter().setCanAtck(false);
         }
     }
     
@@ -208,7 +235,6 @@ public class Game {
     private static Coordinate parseToCoordinate(String coordinateString){
         String[] parse = coordinateString.split(":");
         return new Coordinate(Integer.valueOf(parse[0]), Integer.valueOf(parse[1]));// TODO si parse pas bien
-
     }
     
     private void moveCharactereTo(Character character, Coordinate choosingCoordinate){
