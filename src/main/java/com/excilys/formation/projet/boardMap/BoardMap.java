@@ -1,5 +1,6 @@
 package com.excilys.formation.projet.boardMap;
 
+import com.excilys.formation.projet.Player;
 import com.excilys.formation.projet.character.Character;
 import com.excilys.formation.projet.character.alien.Lurker;
 
@@ -176,6 +177,20 @@ public class BoardMap {
         }
     }
 
+    public void displayPlayerMap(Player player){
+        for (int y = 0 ; y < height ; y++){
+            for(int x = 0 ; x < width ; x++){
+                if(player.getCharacter().getCoordinate().equals(new Coordinate(x,y))){
+                    System.out.print("X ");
+                } else {
+                System.out.print(this.map.get(new Coordinate(x,y)));
+                System.out.print(" ");
+                }
+            }
+            System.out.println();
+
+        }
+    }
     public Map<Coordinate, Room> getMap() {
         return map;
     }

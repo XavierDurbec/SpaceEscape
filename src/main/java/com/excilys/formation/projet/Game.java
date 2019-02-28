@@ -11,6 +11,7 @@ import com.excilys.formation.projet.character.alien.Praetorian;
 import com.excilys.formation.projet.character.marine.Engineer;
 import com.excilys.formation.projet.character.marine.Marine;
 import com.excilys.formation.projet.character.marine.Soldier;
+import com.excilys.formation.projet.exception.BadParseException;
 
 import java.util.*;
 
@@ -97,7 +98,8 @@ public class Game {
     }
 
     private void playerTurn (Player player){
-        System.out.println("********************* " + player.getSurname() + " turn " + turn + " *********************");
+        System.out.println("********************* " + player.getSurname() + " (" + player.getCharacter().getName() + ")" + " turn " + turn + " *********************");
+        this.map.displayPlayerMap(player);
         if(player.getCharacter().isCanAtck()){
             System.out.println("Do you want attack or move? (A or M)");
             Scanner sc = new Scanner(System.in);
@@ -183,12 +185,18 @@ public class Game {
     private void distantPing(){
         List<Coordinate> possibleMove = new ArrayList<>(this.map.getMap().keySet());
         Scanner entry;
-        Coordinate choosingRoom;
+        Coordinate choosingRoom = null;
         do{
             System.out.println("Pick a room where make noise (all map):");
             entry = new Scanner(System.in);
-            choosingRoom = parseToCoordinate(entry.next());
-        } while (!possibleMove.contains(choosingRoom));
+            try{
+                choosingRoom = parseToCoordinate(entry.next());
+            } catch (BadParseException e){
+                System.out.println("Don't forget ':' between coordinate.");
+            } catch (NumberFormatException e){
+                System.out.println("Only numbers please.");
+            }
+        } while (choosingRoom == null || !possibleMove.contains(choosingRoom));
         System.out.println("There is noise on " + choosingRoom);
     }
 
@@ -219,24 +227,34 @@ public class Game {
          this.map.whereCanIGo(character,character.getCoordinate(), character.getMovement(), possibleMove);
 
         Scanner entry;
-        Coordinate choosingMove;
+        Coordinate choosingMove = null;
         do{
             System.out.println("Where do you want to displacement? you are on: " + character.getCoordinate());
             System.out.println(possibleMove);
             entry = new Scanner(System.in);
-            choosingMove = parseToCoordinate(entry.next());
-        } while (!possibleMove.contains(choosingMove));
+            try{
+                choosingMove = parseToCoordinate(entry.next());
+            } catch (BadParseException e){
+                System.out.println("Don't forget ':' between coordinate.");
+            } catch (NumberFormatException e){
+                System.out.println("Only numbers please.");
+            }
+        } while (choosingMove == null || !possibleMove.contains(choosingMove));
 
         moveCharactereTo(character,choosingMove);
         
     }
 
 
-    private static Coordinate parseToCoordinate(String coordinateString){
+    private static Coordinate parseToCoordinate (String coordinateString) throws BadParseException {
         String[] parse = coordinateString.split(":");
-        return new Coordinate(Integer.valueOf(parse[0]), Integer.valueOf(parse[1]));// TODO si parse pas bien
+        if (parse.length != 2 ){
+            throw new BadParseException();
+        } else {
+            return new Coordinate(Integer.valueOf(parse[0]), Integer.valueOf(parse[1]));
+        }
     }
-    
+
     private void moveCharactereTo(Character character, Coordinate choosingCoordinate){
         this.map.getMap().get(character.getCoordinate()).removePlaceble(character);
         this.map.getMap().get(choosingCoordinate).addPlaceable(character);
