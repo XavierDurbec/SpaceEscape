@@ -1,16 +1,9 @@
 package com.excilys.formation.projet;
 
-import com.excilys.formation.projet.boardMap.BoardMap;
-import com.excilys.formation.projet.boardMap.Coordinate;
-import com.excilys.formation.projet.boardMap.Placeable;
-import com.excilys.formation.projet.boardMap.RoomType;
+import com.excilys.formation.projet.boardMap.*;
+import com.excilys.formation.projet.character.alien.*;
+import com.excilys.formation.projet.character.marine.*;
 import com.excilys.formation.projet.character.Character;
-import com.excilys.formation.projet.character.alien.Alien;
-import com.excilys.formation.projet.character.alien.Lurker;
-import com.excilys.formation.projet.character.alien.Praetorian;
-import com.excilys.formation.projet.character.marine.Engineer;
-import com.excilys.formation.projet.character.marine.Marine;
-import com.excilys.formation.projet.character.marine.Soldier;
 import com.excilys.formation.projet.exception.BadParseException;
 
 import java.util.*;
@@ -98,11 +91,11 @@ public class Game {
     }
 
     private void playerTurn (Player player){
+        Scanner sc = new Scanner(System.in);
         System.out.println("********************* " + player.getSurname() + " (" + player.getCharacter().getName() + ")" + " turn " + turn + " *********************");
         this.map.displayPlayerMap(player);
         if(player.getCharacter().isCanAtck()){
             System.out.println("Do you want attack or move? (A or M)");
-            Scanner sc = new Scanner(System.in);
             String entry = sc.next();
             if(entry.equals("A")){
                 attack(player);
@@ -118,7 +111,7 @@ public class Game {
     private void attack(Player player){
         displacement(player.getCharacter());
         List<Placeable> placeableList = this.map.getMap().get(player.getCharacter().getCoordinate()).getPlaceables();
-        attackPing(player.getCharacter().getCoordinate());
+        attackPing(player);
 
         for (Placeable placeable : placeableList){
             if(!(placeable instanceof Praetorian) && placeable instanceof Character && !placeable.equals(player.getCharacter())){
@@ -137,10 +130,10 @@ public class Game {
         displacement(player.getCharacter());
         switch (this.map.getMap().get(player.getCharacter().getCoordinate()).getType()){
             case SAFE:
-                safePing();
+                safePing(player);
                 break;
             case UNSAFE:
-                unsafeRoomDraw(player.getCharacter());
+                unsafeRoomDraw(player);
                 break;
             case CAPSULE:
                 capsuleOpening(player);
@@ -152,37 +145,37 @@ public class Game {
      * On an unsafe room, three things can be randomly done.
      * 1: No luck, player make noise on his position.
      * 2: Player cane make noise where he want on the map
-     * 3: Player dont do noise. TODO: add equipment draw
-     * @param character
+     * 3: Player dont do noise.
+     * @param player
      */
-    private void unsafeRoomDraw(Character character){
+    private void unsafeRoomDraw(Player player){
         Random random = new Random();
         int res = random.nextInt(2);
         if(res == 0){
-            noisePing(character.getCoordinate());
+            noisePing(player, player.getCharacter().getCoordinate());
         } else if(res == 1){
-            distantPing();
+            distantPing(player);
         } else {
-            silentPing();
+            silentPing(player);
         }
     }
 // TODO mettre tous les ping sur les personnages
-    private void safePing(){
-        System.out.println("Someone enter to a safe room.");
+    private void safePing(Player player){
+        System.out.println(player.getSurname() + " enter to a safe room.");
     }
 
-    private void silentPing(){
-        System.out.println("**Silent**");
+    private void silentPing(Player player){
+        System.out.println(player.getSurname() + " don't make a noise.");
     }
-    private void noisePing(Coordinate coordinate){
-        System.out.println("There is noise on " + coordinate);
-    }
-
-    private void attackPing(Coordinate coordinate){
-        System.out.println("There is attack on " + coordinate);
+    private void noisePing(Player player, Coordinate coordinate){
+        System.out.println(player.getSurname() + "make noise on " + coordinate);
     }
 
-    private void distantPing(){
+    private void attackPing(Player player){
+        System.out.println(player.getSurname() + " attack on " + player.getCharacter().getCoordinate());
+    }
+
+    private void distantPing(Player player){
         List<Coordinate> possibleMove = new ArrayList<>(this.map.getMap().keySet());
         Scanner entry;
         Coordinate choosingRoom = null;
@@ -197,7 +190,7 @@ public class Game {
                 System.out.println("Only numbers please.");
             }
         } while (choosingRoom == null || !possibleMove.contains(choosingRoom));
-        System.out.println("There is noise on " + choosingRoom);
+        noisePing(player, choosingRoom);
     }
 
     private void capsuleOpening( Player player){

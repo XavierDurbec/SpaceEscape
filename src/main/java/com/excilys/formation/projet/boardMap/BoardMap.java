@@ -167,10 +167,12 @@ public class BoardMap {
 
 
     public void displayMap(){
+        displayColumn();
         for (int y = 0 ; y < height ; y++){
+            displayLine(y);
             for(int x = 0 ; x < width ; x++){
                 System.out.print(this.map.get(new Coordinate(x,y)));
-                System.out.print(" ");
+                System.out.print("  ");
             }
             System.out.println();
 
@@ -178,17 +180,42 @@ public class BoardMap {
     }
 
     public void displayPlayerMap(Player player){
+        displayColumn();
         for (int y = 0 ; y < height ; y++){
+            displayLine(y);
             for(int x = 0 ; x < width ; x++){
                 if(player.getCharacter().getCoordinate().equals(new Coordinate(x,y))){
-                    System.out.print("X ");
+                    System.out.print("X  ");
                 } else {
-                System.out.print(this.map.get(new Coordinate(x,y)));
-                System.out.print(" ");
+                    System.out.print(this.map.get(new Coordinate(x,y)));
+                    System.out.print("  ");
                 }
             }
             System.out.println();
 
+        }
+    }
+
+
+    private void displayColumn(){
+        System.out.print("   ");
+        for (int i = 0 ; i < width ; i++){
+            if(i < 10){
+                System.out.print(i  + "  ");
+
+            } else {
+                System.out.print(i + " ");
+            }
+        }
+        System.out.println();
+    }
+
+    private void displayLine(int line){
+        if(line < 10){
+            System.out.print(line + "  ");
+
+        } else {
+            System.out.print(line + " ");
         }
     }
     public Map<Coordinate, Room> getMap() {
