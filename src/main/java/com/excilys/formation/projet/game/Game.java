@@ -1,10 +1,11 @@
-package com.excilys.formation.projet;
+package com.excilys.formation.projet.game;
 
-import com.excilys.formation.projet.boardMap.*;
-import com.excilys.formation.projet.character.alien.*;
-import com.excilys.formation.projet.character.marine.*;
-import com.excilys.formation.projet.character.Character;
+import com.excilys.formation.projet.model.boardMap.*;
+import com.excilys.formation.projet.model.character.alien.*;
+import com.excilys.formation.projet.model.character.marine.*;
+import com.excilys.formation.projet.model.character.Character;
 import com.excilys.formation.projet.exception.BadParseException;
+import com.excilys.formation.projet.model.Player;
 
 import java.util.*;
 

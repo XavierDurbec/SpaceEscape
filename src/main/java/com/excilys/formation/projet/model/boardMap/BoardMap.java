@@ -1,8 +1,8 @@
-package com.excilys.formation.projet.boardMap;
+package com.excilys.formation.projet.model.boardMap;
 
-import com.excilys.formation.projet.Player;
-import com.excilys.formation.projet.character.Character;
-import com.excilys.formation.projet.character.alien.Lurker;
+import com.excilys.formation.projet.model.Player;
+import com.excilys.formation.projet.model.character.Character;
+import com.excilys.formation.projet.model.character.alien.Lurker;
 
 import java.util.ArrayList;
 import java.util.HashMap;

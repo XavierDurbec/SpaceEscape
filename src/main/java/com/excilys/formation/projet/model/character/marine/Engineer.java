@@ -1,4 +1,4 @@
-package com.excilys.formation.projet.character.marine;
+package com.excilys.formation.projet.model.character.marine;
 
 public class Engineer extends Marine {
     public Engineer() {

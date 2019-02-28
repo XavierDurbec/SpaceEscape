@@ -1,10 +1,10 @@
-package com.excilys.formation.projet;
+package com.excilys.formation.projet.model;
 
-import com.excilys.formation.projet.character.Character;
+import com.excilys.formation.projet.model.character.Character;
 
 import java.util.Objects;
 
-public class Player implements Comparable<Player>{
+public class Player {
     private final String surname;
     private Character character;
     private boolean isAnIA;
@@ -60,9 +60,4 @@ public class Player implements Comparable<Player>{
         return Objects.hash(surname);
     }
 
-
-    @Override
-    public int compareTo(Player o) {
-        return 0;
-    }
 }
