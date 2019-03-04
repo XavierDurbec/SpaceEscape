@@ -1,6 +1,6 @@
-package com.excilys.formation.projet;
+package com.excilys.formation.projet.buissness.model.player;
 
-import com.excilys.formation.projet.character.Character;
+import com.excilys.formation.projet.buissness.model.character.Character;
 
 import java.util.Objects;
 

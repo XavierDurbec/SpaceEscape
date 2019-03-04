@@ -1,6 +1,6 @@
-package com.excilys.formation.projet.character.alien;
+package com.excilys.formation.projet.buissness.model.character.alien;
 
-import com.excilys.formation.projet.character.Character;
+import com.excilys.formation.projet.buissness.model.character.Character;
 
 public abstract class Alien extends Character {
 

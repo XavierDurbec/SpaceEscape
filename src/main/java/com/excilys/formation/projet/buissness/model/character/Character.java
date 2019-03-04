@@ -1,10 +1,7 @@
-package com.excilys.formation.projet.character;
+package com.excilys.formation.projet.buissness.model.character;
 
-import com.excilys.formation.projet.boardMap.Coordinate;
-import com.excilys.formation.projet.boardMap.Placeable;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.excilys.formation.projet.buissness.model.boardMap.Coordinate;
+import com.excilys.formation.projet.buissness.model.boardMap.Placeable;
 
 public abstract class Character implements Placeable {
     protected int movement;

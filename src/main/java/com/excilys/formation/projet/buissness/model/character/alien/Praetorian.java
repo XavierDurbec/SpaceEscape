@@ -1,4 +1,4 @@
-package com.excilys.formation.projet.character.alien;
+package com.excilys.formation.projet.buissness.model.character.alien;
 
 public class Praetorian extends Alien {
     public Praetorian() {

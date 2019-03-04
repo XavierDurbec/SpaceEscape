@@ -1,8 +1,8 @@
-package com.excilys.formation.projet.boardMap;
+package com.excilys.formation.projet.buissness.model.boardMap;
 
-import com.excilys.formation.projet.Player;
-import com.excilys.formation.projet.character.Character;
-import com.excilys.formation.projet.character.alien.Lurker;
+import com.excilys.formation.projet.buissness.model.player.Player;
+import com.excilys.formation.projet.buissness.model.character.Character;
+import com.excilys.formation.projet.buissness.model.character.alien.Lurker;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,57 +35,57 @@ public class BoardMap {
         this.alienSpawn = new Coordinate(10,6);
         this.map.get(alienSpawn).setType(RoomType.ALIEN_SPAWN);
 
-        this.map.get(new Coordinate(8,7)).setType(RoomType.CONNDEMNED);
-        this.map.get(new Coordinate(9,7)).setType(RoomType.CONNDEMNED);
-        this.map.get(new Coordinate(10,7)).setType(RoomType.CONNDEMNED);
-        this.map.get(new Coordinate(11,7)).setType(RoomType.CONNDEMNED);
-        this.map.get(new Coordinate(12,7)).setType(RoomType.CONNDEMNED);
+        this.map.get(new Coordinate(8,7)).setType(RoomType.CONDEMNED);
+        this.map.get(new Coordinate(9,7)).setType(RoomType.CONDEMNED);
+        this.map.get(new Coordinate(10,7)).setType(RoomType.CONDEMNED);
+        this.map.get(new Coordinate(11,7)).setType(RoomType.CONDEMNED);
+        this.map.get(new Coordinate(12,7)).setType(RoomType.CONDEMNED);
 
-        this.map.get(new Coordinate(6,5)).setType(RoomType.CONNDEMNED);
+        this.map.get(new Coordinate(6,5)).setType(RoomType.CONDEMNED);
 
-        this.map.get(new Coordinate(5,0)).setType(RoomType.CONNDEMNED);
+        this.map.get(new Coordinate(5,0)).setType(RoomType.CONDEMNED);
 
-        this.map.get(new Coordinate(0,6)).setType(RoomType.CONNDEMNED);
-        this.map.get(new Coordinate(0,7)).setType(RoomType.CONNDEMNED);
-        this.map.get(new Coordinate(0,8)).setType(RoomType.CONNDEMNED);
-        this.map.get(new Coordinate(1,7)).setType(RoomType.CONNDEMNED);
+        this.map.get(new Coordinate(0,6)).setType(RoomType.CONDEMNED);
+        this.map.get(new Coordinate(0,7)).setType(RoomType.CONDEMNED);
+        this.map.get(new Coordinate(0,8)).setType(RoomType.CONDEMNED);
+        this.map.get(new Coordinate(1,7)).setType(RoomType.CONDEMNED);
 
-        this.map.get(new Coordinate(20,6)).setType(RoomType.CONNDEMNED);
-        this.map.get(new Coordinate(20,7)).setType(RoomType.CONNDEMNED);
-        this.map.get(new Coordinate(20,8)).setType(RoomType.CONNDEMNED);
-        this.map.get(new Coordinate(19,7)).setType(RoomType.CONNDEMNED);
+        this.map.get(new Coordinate(20,6)).setType(RoomType.CONDEMNED);
+        this.map.get(new Coordinate(20,7)).setType(RoomType.CONDEMNED);
+        this.map.get(new Coordinate(20,8)).setType(RoomType.CONDEMNED);
+        this.map.get(new Coordinate(19,7)).setType(RoomType.CONDEMNED);
 
-        this.map.get(new Coordinate(2,4)).setType(RoomType.CONNDEMNED);
-        this.map.get(new Coordinate(3,4)).setType(RoomType.CONNDEMNED);
-        this.map.get(new Coordinate(4,4)).setType(RoomType.CONNDEMNED);
-        this.map.get(new Coordinate(3,5)).setType(RoomType.CONNDEMNED);
+        this.map.get(new Coordinate(2,4)).setType(RoomType.CONDEMNED);
+        this.map.get(new Coordinate(3,4)).setType(RoomType.CONDEMNED);
+        this.map.get(new Coordinate(4,4)).setType(RoomType.CONDEMNED);
+        this.map.get(new Coordinate(3,5)).setType(RoomType.CONDEMNED);
 
-        this.map.get(new Coordinate(15,2)).setType(RoomType.CONNDEMNED);
-        this.map.get(new Coordinate(15,3)).setType(RoomType.CONNDEMNED);
-        this.map.get(new Coordinate(15,4)).setType(RoomType.CONNDEMNED);
-        this.map.get(new Coordinate(16,4)).setType(RoomType.CONNDEMNED);
+        this.map.get(new Coordinate(15,2)).setType(RoomType.CONDEMNED);
+        this.map.get(new Coordinate(15,3)).setType(RoomType.CONDEMNED);
+        this.map.get(new Coordinate(15,4)).setType(RoomType.CONDEMNED);
+        this.map.get(new Coordinate(16,4)).setType(RoomType.CONDEMNED);
 
-        this.map.get(new Coordinate(12,1)).setType(RoomType.CONNDEMNED);
-        this.map.get(new Coordinate(12,2)).setType(RoomType.CONNDEMNED);
+        this.map.get(new Coordinate(12,1)).setType(RoomType.CONDEMNED);
+        this.map.get(new Coordinate(12,2)).setType(RoomType.CONDEMNED);
 
-        this.map.get(new Coordinate(16,14)).setType(RoomType.CONNDEMNED);
-        this.map.get(new Coordinate(15,14)).setType(RoomType.CONNDEMNED);
+        this.map.get(new Coordinate(16,14)).setType(RoomType.CONDEMNED);
+        this.map.get(new Coordinate(15,14)).setType(RoomType.CONDEMNED);
 
-        this.map.get(new Coordinate(3,13)).setType(RoomType.CONNDEMNED);
+        this.map.get(new Coordinate(3,13)).setType(RoomType.CONDEMNED);
 
 
-        this.map.get(new Coordinate(5,9)).setType(RoomType.CONNDEMNED);
-        this.map.get(new Coordinate(5,10)).setType(RoomType.CONNDEMNED);
-        this.map.get(new Coordinate(6,11)).setType(RoomType.CONNDEMNED);
-        this.map.get(new Coordinate(7,12)).setType(RoomType.CONNDEMNED);
+        this.map.get(new Coordinate(5,9)).setType(RoomType.CONDEMNED);
+        this.map.get(new Coordinate(5,10)).setType(RoomType.CONDEMNED);
+        this.map.get(new Coordinate(6,11)).setType(RoomType.CONDEMNED);
+        this.map.get(new Coordinate(7,12)).setType(RoomType.CONDEMNED);
 
-        this.map.get(new Coordinate(16,9)).setType(RoomType.CONNDEMNED);
-        this.map.get(new Coordinate(16,8)).setType(RoomType.CONNDEMNED);
-        this.map.get(new Coordinate(15,9)).setType(RoomType.CONNDEMNED);
-        this.map.get(new Coordinate(15,8)).setType(RoomType.CONNDEMNED);
-        this.map.get(new Coordinate(14,9)).setType(RoomType.CONNDEMNED);
-        this.map.get(new Coordinate(14,10)).setType(RoomType.CONNDEMNED);
-        this.map.get(new Coordinate(15,10)).setType(RoomType.CONNDEMNED);
+        this.map.get(new Coordinate(16,9)).setType(RoomType.CONDEMNED);
+        this.map.get(new Coordinate(16,8)).setType(RoomType.CONDEMNED);
+        this.map.get(new Coordinate(15,9)).setType(RoomType.CONDEMNED);
+        this.map.get(new Coordinate(15,8)).setType(RoomType.CONDEMNED);
+        this.map.get(new Coordinate(14,9)).setType(RoomType.CONDEMNED);
+        this.map.get(new Coordinate(14,10)).setType(RoomType.CONDEMNED);
+        this.map.get(new Coordinate(15,10)).setType(RoomType.CONDEMNED);
 
 
         this.map.get(new Coordinate(9,10)).setType(RoomType.SAFE);
@@ -279,7 +279,7 @@ public class BoardMap {
                 coordinate.getY() >= this.height ||
                 result.contains(coordinate) ||
                 (coordinate.equals(character.getCoordinate()) && !(character instanceof Lurker)) ||
-                this.map.get(coordinate).getType().equals(RoomType.CONNDEMNED) ){
+                this.map.get(coordinate).getType().equals(RoomType.CONDEMNED) ){
             return false;
         } else {
             return true;

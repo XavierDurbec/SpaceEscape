@@ -1,4 +1,4 @@
-package com.excilys.formation.projet.boardMap;
+package com.excilys.formation.projet.buissness.model.boardMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +47,7 @@ public class Room {
                 return "_";
             case UNSAFE:
                 return ".";
-            case CONNDEMNED:
+            case CONDEMNED:
                 return "*";
             case CAPSULE:
                 return "O";

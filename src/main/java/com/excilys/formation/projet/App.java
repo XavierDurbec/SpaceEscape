@@ -1,10 +1,8 @@
 package com.excilys.formation.projet;
 
-import com.excilys.formation.projet.boardMap.BoardMap;
-import com.excilys.formation.projet.character.alien.Lurker;
-import com.excilys.formation.projet.character.alien.Praetorian;
-import com.excilys.formation.projet.character.marine.Engineer;
-import com.excilys.formation.projet.character.marine.Soldier;
+import com.excilys.formation.projet.buissness.Game;
+import com.excilys.formation.projet.buissness.model.player.Player;
+import com.excilys.formation.projet.buissness.model.boardMap.BoardMap;
 
 import java.util.ArrayList;
 import java.util.List;

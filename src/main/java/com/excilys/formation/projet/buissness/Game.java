@@ -1,10 +1,11 @@
-package com.excilys.formation.projet;
+package com.excilys.formation.projet.buissness;
 
-import com.excilys.formation.projet.boardMap.*;
-import com.excilys.formation.projet.character.alien.*;
-import com.excilys.formation.projet.character.marine.*;
-import com.excilys.formation.projet.character.Character;
-import com.excilys.formation.projet.exception.BadParseException;
+import com.excilys.formation.projet.buissness.model.player.Player;
+import com.excilys.formation.projet.buissness.model.boardMap.*;
+import com.excilys.formation.projet.buissness.model.character.alien.*;
+import com.excilys.formation.projet.buissness.model.character.marine.*;
+import com.excilys.formation.projet.buissness.model.character.Character;
+import com.excilys.formation.projet.buissness.exception.BadParseException;
 
 import java.util.*;
 
@@ -18,14 +19,14 @@ public class Game {
     private int turn;
     private boolean deficientCapsuleDetected;
 
-    public Game(String name, BoardMap map, Collection<Player> activePlayers) {
+    public Game(String name, BoardMap map, List<Player> activePlayers) {
         this.name = name;
         this.map = map;
         this.players.addAll(activePlayers);
         this.activePlayers.addAll(players);
     }
 
-    public Game(String name, Collection<Player> activePlayers) {
+    public Game(String name, List<Player> activePlayers) {
         this(name,new BoardMap(), activePlayers);
         initGame();
     }
