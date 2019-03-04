@@ -1,33 +1,39 @@
 package com.excilys.formation.projet.buissness;
 
+import com.excilys.formation.projet.buissness.exception.NoPlayerForThisCharacterException;
 import com.excilys.formation.projet.buissness.model.player.Player;
 import com.excilys.formation.projet.buissness.model.boardMap.*;
 import com.excilys.formation.projet.buissness.model.character.alien.*;
 import com.excilys.formation.projet.buissness.model.character.marine.*;
 import com.excilys.formation.projet.buissness.model.character.Character;
-import com.excilys.formation.projet.buissness.exception.BadParseException;
+import com.excilys.formation.projet.buissness.service.GameService;
 
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Game {
     private static Character[] GAME_CHARACTER = new Character[]{new Lurker(), new Praetorian(), new Soldier(), new Engineer()};
 
+    private Logger logger = Logger.getLogger("Game");
     private String name;
     private BoardMap map;
     private List<Player> activePlayers = new ArrayList<>();
     private List<Player> players = new ArrayList<>();
     private int turn;
     private boolean deficientCapsuleDetected;
+    private GameService gameService;
 
-    public Game(String name, BoardMap map, List<Player> activePlayers) {
+    public Game(String name, BoardMap map, List<Player> activePlayers, GameService gameService) {
         this.name = name;
         this.map = map;
         this.players.addAll(activePlayers);
         this.activePlayers.addAll(players);
+        this.gameService = gameService;
     }
 
-    public Game(String name, List<Player> activePlayers) {
-        this(name,new BoardMap(), activePlayers);
+    public Game(String name, List<Player> activePlayers, GameService gameService) {
+        this(name,new BoardMap(), activePlayers, gameService);
         initGame();
     }
 
@@ -72,13 +78,11 @@ public class Game {
         } while (gameContinue());
 
         System.out.println("Game is over");
-        diplayWinner();
+        gameService.diplayWinner(players);
 
     }
 
-    private void diplayWinner(){;
-        players.stream().filter(Player::haveWin).forEach(player -> System.out.println(player.getSurname() + " have win."));
-    }
+
     private boolean gameContinue(){
         for (Player player : this.activePlayers){
             if(player.getCharacter() instanceof Marine){
@@ -109,29 +113,41 @@ public class Game {
 
     }
 
-    private void attack(Player player){
-        displacement(player.getCharacter());
+    private void attack(Player player) {
+        displacement(player);
         List<Placeable> placeableList = this.map.getMap().get(player.getCharacter().getCoordinate()).getPlaceables();
-        attackPing(player);
+        gameService.attackPing(player);
 
         for (Placeable placeable : placeableList){
             if(!(placeable instanceof Praetorian) && placeable instanceof Character && !placeable.equals(player.getCharacter())){
                 Character character = (Character) placeable;
                 character.setAlive(false);
                 this.map.getMap().get(player.getCharacter().getCoordinate()).removePlaceble(placeable);
-                System.out.println(character.getName() + " is kill  by " + player.getSurname());
+                try{
+                    gameService.playerDeath(player, getPlayerOfThisCharacter(character));
+                } catch (NoPlayerForThisCharacterException e){
+                    logger.log(Level.WARNING, e.getMessage());
+                }
             }
         }
         if (player.getCharacter() instanceof Soldier){ // Soldier can attack only once.
             player.getCharacter().setCanAtck(false);
         }
     }
-    
+
+    private Player getPlayerOfThisCharacter(Character character) throws NoPlayerForThisCharacterException{
+        for (Player player : this.players) {
+            if(player.getCharacter().equals(character)){
+                return player;
+            }
+        }
+        throw new NoPlayerForThisCharacterException();
+    }
     private void move(Player player){
-        displacement(player.getCharacter());
+        displacement(player);
         switch (this.map.getMap().get(player.getCharacter().getCoordinate()).getType()){
             case SAFE:
-                safePing(player);
+                gameService.safePing(player);
                 break;
             case UNSAFE:
                 unsafeRoomDraw(player);
@@ -153,45 +169,20 @@ public class Game {
         Random random = new Random();
         int res = random.nextInt(2);
         if(res == 0){
-            noisePing(player, player.getCharacter().getCoordinate());
+            gameService.noisePing(player, player.getCharacter().getCoordinate());
         } else if(res == 1){
             distantPing(player);
         } else {
-            silentPing(player);
+            gameService.silentPing(player);
         }
     }
-// TODO mettre tous les ping sur les personnages
-    private void safePing(Player player){
-        System.out.println(player.getSurname() + " enter to a safe room.");
-    }
 
-    private void silentPing(Player player){
-        System.out.println(player.getSurname() + " don't make a noise.");
-    }
-    private void noisePing(Player player, Coordinate coordinate){
-        System.out.println(player.getSurname() + "make noise on " + coordinate);
-    }
-
-    private void attackPing(Player player){
-        System.out.println(player.getSurname() + " attack on " + player.getCharacter().getCoordinate());
-    }
 
     private void distantPing(Player player){
         List<Coordinate> possibleMove = new ArrayList<>(this.map.getMap().keySet());
         Scanner entry;
-        Coordinate choosingRoom = null;
-        do{
-            System.out.println("Pick a room where make noise (all map):");
-            entry = new Scanner(System.in);
-            try{
-                choosingRoom = parseToCoordinate(entry.next());
-            } catch (BadParseException e){
-                System.out.println("Don't forget ':' between coordinate.");
-            } catch (NumberFormatException e){
-                System.out.println("Only numbers please.");
-            }
-        } while (choosingRoom == null || !possibleMove.contains(choosingRoom));
-        noisePing(player, choosingRoom);
+        Coordinate choosingRoom = gameService.askPlayerWhereMakeNoise(player, map.getWidth(), map.getHeight());
+        gameService.noisePing(player, choosingRoom);
     }
 
     private void capsuleOpening( Player player){
@@ -216,37 +207,14 @@ public class Game {
         player.getCharacter().setEscaped(true);
     }
 
-    private void displacement(Character character){
+    private void displacement(Player player){
          List<Coordinate> possibleMove = new ArrayList<>();
-         this.map.whereCanIGo(character,character.getCoordinate(), character.getMovement(), possibleMove);
-
-        Scanner entry;
-        Coordinate choosingMove = null;
-        do{
-            System.out.println("Where do you want to displacement? you are on: " + character.getCoordinate());
-            System.out.println(possibleMove);
-            entry = new Scanner(System.in);
-            try{
-                choosingMove = parseToCoordinate(entry.next());
-            } catch (BadParseException e){
-                System.out.println("Don't forget ':' between coordinate.");
-            } catch (NumberFormatException e){
-                System.out.println("Only numbers please.");
-            }
-        } while (choosingMove == null || !possibleMove.contains(choosingMove));
+         Character character = player.getCharacter();
+        whereCanCharacterGo(this.map, character,character.getCoordinate(), character.getMovement(), possibleMove);
+        Coordinate choosingMove = gameService.askPlayerWhereMove(player, possibleMove);
 
         moveCharactereTo(character,choosingMove);
         
-    }
-
-
-    private static Coordinate parseToCoordinate (String coordinateString) throws BadParseException {
-        String[] parse = coordinateString.split(":");
-        if (parse.length != 2 ){
-            throw new BadParseException();
-        } else {
-            return new Coordinate(Integer.valueOf(parse[0]), Integer.valueOf(parse[1]));
-        }
     }
 
     private void moveCharactereTo(Character character, Coordinate choosingCoordinate){
@@ -255,5 +223,58 @@ public class Game {
         character.setCoordinate(choosingCoordinate);
     }
 
+
+    private List<Coordinate> whereCanCharacterGo (BoardMap map, Character character, Coordinate coordinate, int distance, List<Coordinate> result){
+        if(isValideDestination(map, character,coordinate, result)){
+            result.add(coordinate);
+        }
+        if(distance <= 0){
+            return result;
+        } else {
+            List<Coordinate> valideProxyRoomList = giveValideProxyRoomList(character, coordinate, result);
+            for (Coordinate valideProxyRoom : valideProxyRoomList){
+                whereCanCharacterGo(map, character, valideProxyRoom, distance-1, result);
+            }
+            return result;
+        }
+
+    }
+
+    private List<Coordinate> giveValideProxyRoomList(Character character, Coordinate coordinate, List<Coordinate> result){
+        List<Coordinate> valideProxyRoomList = new ArrayList<>();
+
+        Coordinate up = new Coordinate(coordinate.getX(),coordinate.getY()-1);
+        Coordinate right = new Coordinate(coordinate.getX()+1,coordinate.getY());
+        Coordinate down = new Coordinate(coordinate.getX(),coordinate.getY()+1);
+        Coordinate left = new Coordinate(coordinate.getX()-1,coordinate.getY());
+
+        if(isValideDestination(map, character, up, result)){
+            valideProxyRoomList.add(up);
+        }
+        if(isValideDestination(map, character, right, result)){
+            valideProxyRoomList.add(right);
+        }
+        if(isValideDestination(map, character, down, result)){
+            valideProxyRoomList.add(down);
+        }
+        if(isValideDestination(map, character, left, result)){
+            valideProxyRoomList.add(left);
+        }
+        return valideProxyRoomList;
+    }
+
+    private boolean isValideDestination(BoardMap map, Character character, Coordinate coordinate, List<Coordinate> result){
+        if (coordinate.getX() < 0 ||
+                coordinate.getY() < 0 ||
+                coordinate.getX() >= map.getWidth() ||
+                coordinate.getY() >= map.getHeight() ||
+                result.contains(coordinate) ||
+                (coordinate.equals(character.getCoordinate()) && !(character instanceof Lurker)) ||
+                map.getMap().get(coordinate).getType().equals(RoomType.CONDEMNED) ){
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
 

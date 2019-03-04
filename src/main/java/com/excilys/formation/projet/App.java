@@ -3,6 +3,7 @@ package com.excilys.formation.projet;
 import com.excilys.formation.projet.buissness.Game;
 import com.excilys.formation.projet.buissness.model.player.Player;
 import com.excilys.formation.projet.buissness.model.boardMap.BoardMap;
+import com.excilys.formation.projet.cli.GameServiceCLI;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,8 @@ public class App
         players.add(rached);
         players.add(sylvain);
 
-        Game game = new Game("test", players);
+
+        Game game = new Game("test", players, new GameServiceCLI());
 
         game.play();
 

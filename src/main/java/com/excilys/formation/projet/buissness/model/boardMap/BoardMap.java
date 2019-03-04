@@ -13,7 +13,6 @@ public class BoardMap {
     private final java.util.Map<Coordinate, Room> map = new HashMap<>();
     private final int height;
     private final int width;
-
     private final Coordinate alienSpawn;
     private final Coordinate marineSpawn;
 
@@ -233,56 +232,13 @@ public class BoardMap {
     }
 
 
-    public List<Coordinate> whereCanIGo (Character character, Coordinate coordinate, int distance, List<Coordinate> result){
-        if(isValideDestination(character,coordinate, result)){
-            result.add(coordinate);
-        }
-        if(distance <= 0){
-            return result;
-        } else {
-            List<Coordinate> valideProxyRoomList = giveValideProxyRoomList(character, coordinate, result);
-            for (Coordinate valideProxyRoom : valideProxyRoomList){
-                whereCanIGo(character, valideProxyRoom, distance-1, result);
-            }
-            return result;
-        }
 
+
+    public int getHeight() {
+        return height;
     }
 
-    private List<Coordinate> giveValideProxyRoomList(Character character, Coordinate coordinate, List<Coordinate> result){
-        List<Coordinate> valideProxyRoomList = new ArrayList<>();
-
-        Coordinate up = new Coordinate(coordinate.getX(),coordinate.getY()-1);
-        Coordinate right = new Coordinate(coordinate.getX()+1,coordinate.getY());
-        Coordinate down = new Coordinate(coordinate.getX(),coordinate.getY()+1);
-        Coordinate left = new Coordinate(coordinate.getX()-1,coordinate.getY());
-
-        if(isValideDestination(character, up, result)){
-            valideProxyRoomList.add(up);
-        }
-        if(isValideDestination(character, right, result)){
-            valideProxyRoomList.add(right);
-        }
-        if(isValideDestination(character, down, result)){
-            valideProxyRoomList.add(down);
-        }
-        if(isValideDestination(character, left, result)){
-            valideProxyRoomList.add(left);
-        }
-        return valideProxyRoomList;
-    }
-
-    private boolean isValideDestination(Character character, Coordinate coordinate, List<Coordinate> result){
-        if (coordinate.getX() < 0 ||
-                coordinate.getY() < 0 ||
-                coordinate.getX() >= this.width ||
-                coordinate.getY() >= this.height ||
-                result.contains(coordinate) ||
-                (coordinate.equals(character.getCoordinate()) && !(character instanceof Lurker)) ||
-                this.map.get(coordinate).getType().equals(RoomType.CONDEMNED) ){
-            return false;
-        } else {
-            return true;
-        }
+    public int getWidth() {
+        return width;
     }
 }
