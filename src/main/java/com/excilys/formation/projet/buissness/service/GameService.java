@@ -17,9 +17,12 @@ public interface GameService {
     void silentPing(Player player);
     void noisePing(Player player, Coordinate coordinate);
     void attackPing(Player player);
-    void diplayWinner(List<Player> players);
+    void gameIsOver(List<Player> winners);
     void playerDeath(Player killer, Player killedPlayer);
     void newTurnPing(int turnNumber);
     void newPlayerTurnPing(Player player, int turn);
     boolean doesPlayerWantAttack(Player player);
+
+    void playerEscaped(Player player);
+    void capsuleUseFailed(Player player);
 }

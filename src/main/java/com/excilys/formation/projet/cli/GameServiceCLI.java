@@ -86,8 +86,8 @@ public class GameServiceCLI implements GameService {
     }
 
     @Override
-    public void diplayWinner(List<Player> players){;
-        players.stream().filter(Player::haveWin).forEach(player -> System.out.println(player.getSurname() + " have win."));
+    public void gameIsOver(List<Player> winner){;
+        winner.forEach(player -> System.out.println(player.getSurname() + " have win."));
     }
 
     @Override
@@ -113,6 +113,18 @@ public class GameServiceCLI implements GameService {
             System.out.println("Do you want attack or move? (A or M)");
             String entry = sc.next();
             return entry.equals("A");
+    }
+
+    @Override
+    public void playerEscaped(Player player) {
+        System.out.println("Congrate "+ player.getSurname() +"! You escaped from big giant monstruouse alien.");
+
+    }
+
+    @Override
+    public void capsuleUseFailed(Player player) {
+        System.out.println("Bad luck " + player.getSurname() + ", this capsule is deficient. Your salvation is in another capsule.");
+
     }
 
     /////////////////////

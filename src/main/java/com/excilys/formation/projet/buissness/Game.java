@@ -11,6 +11,7 @@ import com.excilys.formation.projet.buissness.service.GameService;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class Game {
     private static Character[] GAME_CHARACTER = new Character[]{new Lurker(), new Praetorian(), new Soldier(), new Engineer()};
@@ -77,12 +78,18 @@ public class Game {
             }
         } while (gameContinue());
 
-        System.out.println("Game is over");
-        gameService.diplayWinner(players);
+
+        gameService.gameIsOver(getWinners());
 
     }
 
-
+    private List<Player> getWinners(){
+        List<Player> winners = players.stream().filter(Player::haveWin).collect(Collectors.toList());
+        if(winners.size() == 0){
+            return players.stream().filter(player -> player.getCharacter() instanceof Alien).collect(Collectors.toList());
+        }
+        return winners;
+    }
     private boolean gameContinue(){
         for (Player player : this.activePlayers){
             if(player.getCharacter() instanceof Marine){
@@ -179,8 +186,6 @@ public class Game {
 
 
     private void distantPing(Player player){
-        List<Coordinate> possibleMove = new ArrayList<>(this.map.getMap().keySet());
-        Scanner entry;
         Coordinate choosingRoom = gameService.wherePlayerWantMakeNoise(player, map.getWidth(), map.getHeight());
         gameService.noisePing(player, choosingRoom);
     }
@@ -192,7 +197,7 @@ public class Game {
             Random random = new Random();
             int detection = random.nextInt(4);
             if(detection == 0){
-                System.out.println("Bad luck, this capsule is deficient. Your salvation is in another capsule.");
+                gameService.capsuleUseFailed(player);
                 this.map.getMap().get(player.getCharacter().getCoordinate()).setType(RoomType.DEFICIENT_CAPSULE);
                 this.deficientCapsuleDetected = true;
             } else {
@@ -202,7 +207,7 @@ public class Game {
     }
 
     private void playerEscape(Player player){
-        System.out.println("Congrate "+ player.getSurname() +"! You escaped from big giant monstruouse alien.");
+        gameService.playerEscaped(player);
         player.setWin(true);
         player.getCharacter().setEscaped(true);
     }
