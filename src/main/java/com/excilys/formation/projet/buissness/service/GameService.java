@@ -11,12 +11,15 @@ import java.util.List;
 public interface GameService {
 
     void displayPlayerMap(Player player, BoardMap map);
-    Coordinate askPlayerWhereMove(Player player, List<Coordinate> possibleMove);
-    Coordinate askPlayerWhereMakeNoise(Player player, int mapWidth, int mapHeight); //TODO comment faire un détrompeur sur Height et Width? Donnée un array? Map?
+    Coordinate wherePlayerWantMove(Player player, List<Coordinate> possibleMove);
+    Coordinate wherePlayerWantMakeNoise(Player player, int mapWidth, int mapHeight); //TODO comment faire un détrompeur sur Height et Width? Donnée un array? Map?
     void safePing(Player player);
     void silentPing(Player player);
     void noisePing(Player player, Coordinate coordinate);
     void attackPing(Player player);
     void diplayWinner(List<Player> players);
     void playerDeath(Player killer, Player killedPlayer);
+    void newTurnPing(int turnNumber);
+    void newPlayerTurnPing(Player player, int turn);
+    boolean doesPlayerWantAttack(Player player);
 }

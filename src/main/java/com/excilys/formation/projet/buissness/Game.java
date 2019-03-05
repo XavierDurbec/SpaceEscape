@@ -67,7 +67,7 @@ public class Game {
         }
         do {
             turn++;
-            System.out.println("********************* turn " + turn + " begin *********************" );
+            gameService.newTurnPing(turn);
             for (Player player : activePlayers) {
                 if (gameContinue() && player.getCharacter().isAlive() && !player.getCharacter().isEscaped()){
                     playerTurn(player);
@@ -96,13 +96,13 @@ public class Game {
     }
 
     private void playerTurn (Player player){
-        Scanner sc = new Scanner(System.in);
-        System.out.println("********************* " + player.getSurname() + " (" + player.getCharacter().getName() + ")" + " turn " + turn + " *********************");
-        this.map.displayPlayerMap(player);
+        gameService.newPlayerTurnPing(player, turn);
+        gameService.displayPlayerMap(player, map);
+
+
         if(player.getCharacter().isCanAtck()){
-            System.out.println("Do you want attack or move? (A or M)");
-            String entry = sc.next();
-            if(entry.equals("A")){
+
+            if(gameService.doesPlayerWantAttack(player)){
                 attack(player);
             } else {
                 move(player);
@@ -181,7 +181,7 @@ public class Game {
     private void distantPing(Player player){
         List<Coordinate> possibleMove = new ArrayList<>(this.map.getMap().keySet());
         Scanner entry;
-        Coordinate choosingRoom = gameService.askPlayerWhereMakeNoise(player, map.getWidth(), map.getHeight());
+        Coordinate choosingRoom = gameService.wherePlayerWantMakeNoise(player, map.getWidth(), map.getHeight());
         gameService.noisePing(player, choosingRoom);
     }
 
@@ -211,7 +211,7 @@ public class Game {
          List<Coordinate> possibleMove = new ArrayList<>();
          Character character = player.getCharacter();
         whereCanCharacterGo(this.map, character,character.getCoordinate(), character.getMovement(), possibleMove);
-        Coordinate choosingMove = gameService.askPlayerWhereMove(player, possibleMove);
+        Coordinate choosingMove = gameService.wherePlayerWantMove(player, possibleMove);
 
         moveCharactereTo(character,choosingMove);
         

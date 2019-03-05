@@ -33,7 +33,7 @@ public class GameServiceCLI implements GameService {
     }
 
     @Override
-    public Coordinate askPlayerWhereMove(Player player, List<Coordinate> possibleMove) {
+    public Coordinate wherePlayerWantMove(Player player, List<Coordinate> possibleMove) {
         Scanner entry;
         Coordinate choosingMove = null;
         do{
@@ -52,7 +52,7 @@ public class GameServiceCLI implements GameService {
     }
 
     @Override
-    public Coordinate askPlayerWhereMakeNoise(Player player, int mapHeight, int mapWidth) {
+    public Coordinate wherePlayerWantMakeNoise(Player player, int mapHeight, int mapWidth) {
         Scanner entry;
         Coordinate choosingRoom = null;
         do{
@@ -94,6 +94,25 @@ public class GameServiceCLI implements GameService {
     public void playerDeath(Player killer, Player killedPlayer) {
         System.out.println(killedPlayer.getSurname() + " (" + killedPlayer.getCharacter().getName() + ") is kill  by " + killer.getSurname());
 
+    }
+
+    @Override
+    public void newTurnPing(int turnNumber) {
+        System.out.println("********************* turn " + turnNumber + " begin *********************" );
+    }
+
+    @Override
+    public void newPlayerTurnPing(Player player, int turn) {
+        System.out.println("********************* " + player.getSurname() + " (" + player.getCharacter().getName() + ")" + " turn " + turn + " *********************");
+
+    }
+
+    @Override
+    public boolean doesPlayerWantAttack(Player player) {
+        Scanner sc = new Scanner(System.in);
+            System.out.println("Do you want attack or move? (A or M)");
+            String entry = sc.next();
+            return entry.equals("A");
     }
 
     /////////////////////
