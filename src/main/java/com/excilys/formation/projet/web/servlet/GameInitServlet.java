@@ -12,29 +12,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet({"/InitGame", "/"})
+@WebServlet("/GameInitServlet")
 public class GameInitServlet extends HttpServlet {
-  private static final long serialVersionUID = 1L;
-  private List<Player> players = new ArrayList<>();
+    private static final long serialVersionUID = 1L;
+    private List<String> players = new ArrayList<>();
 
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    players.add(new Player(request.getParameter("playerName")));
-    response.sendRedirect("/InitGame");
-  }
-
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    System.out.println(request.getServletPath());
-    if ("/forward".equals(request.getServletPath())) {
-      System.out.println("ddz");
-      RequestDispatcher rd = request.getRequestDispatcher("View/spaceEspace.jsp");
-      request.setAttribute("players", players);
-      rd.forward(request, response);
-    } else {
-      RequestDispatcher requestDispatcher = request.getRequestDispatcher("View/initGame.jsp");
-      request.setAttribute("players", players);
-      requestDispatcher.forward(request, response);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
+        players.add(request.getParameter("playerName"));
+        response.sendRedirect("/game");
     }
-  }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.setAttribute("players", players);
+        this.getServletContext().getRequestDispatcher("/View/initGame.jsp").forward(request, response);
+    }
 }

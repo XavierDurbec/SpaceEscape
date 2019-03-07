@@ -8,7 +8,7 @@
 <body>
 <center>
 
-    <form action="/InitGame" method="post">
+    <form action="game" method="post">
       <p>Players Name:</p>
         <input name="playerName">
         <input type="submit" value="addPlayer" name="addPlayer">
@@ -19,11 +19,16 @@
         </tr>
         <c:forEach var="player" items="${players}">
             <tr>
-                <td><c:out value="${player.surname}"/></td>
+                <td><c:out value="${player}"/></td>
             </tr>
         </c:forEach>
     </table>
-    <a href="/InitGame/forward">Game</a>
+
+    <form action="/game/start" method="post">
+        <p>Players Name:</p>
+        <input name="players" type="hidden" value="${players}">
+        <input type="submit" value="Game" name="Game">
+    </form>
 
 </center>
 </body>
