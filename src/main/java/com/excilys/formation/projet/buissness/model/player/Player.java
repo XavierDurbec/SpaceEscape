@@ -65,4 +65,14 @@ public class Player implements Comparable<Player>{
     public int compareTo(Player o) {
         return 0;
     }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "surname='" + surname + '\'' +
+                ", character=" + character +
+                ", isAnIA=" + isAnIA +
+                ", haveWin=" + haveWin +
+                '}';
+    }
 }
