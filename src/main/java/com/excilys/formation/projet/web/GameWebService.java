@@ -45,7 +45,7 @@ public class GameWebService implements GameService {
     }
 
     @Override
-    public void diplayWinner(List<Player> players) {
+    public void gameIsOver(List<Player> players) {
 
     }
 
@@ -67,5 +67,15 @@ public class GameWebService implements GameService {
     @Override
     public boolean doesPlayerWantAttack(Player player) {
         return false;
+    }
+
+    @Override
+    public void playerEscaped(Player player) {
+        
+    }
+
+    @Override
+    public void capsuleUseFailed(Player player) {
+
     }
 }
