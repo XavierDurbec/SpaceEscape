@@ -10,13 +10,22 @@
         <servlet-name>GameInitServlet</servlet-name>
         <url-pattern>/game</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>GameServlet</servlet-name>
         <servlet-class>com.excilys.formation.projet.web.servlet.GameServlet</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>GameServlet</servlet-name>
-        <url-pattern>/game/start</url-pattern>
+        <url-pattern>/game/start/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>InteractionServlet</servlet-name>
+        <servlet-class>com.excilys.formation.projet.web.servlet.InteractionServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>InteractionServlet</servlet-name>
+        <url-pattern>/game/interaction/*</url-pattern>
     </servlet-mapping>
 </web-app>

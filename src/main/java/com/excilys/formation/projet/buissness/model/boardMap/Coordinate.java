@@ -2,7 +2,7 @@ package com.excilys.formation.projet.buissness.model.boardMap;
 
 import java.util.Objects;
 
-public class Coordinate {
+public class Coordinate implements Comparable<Coordinate>{
     private final int x;
     private final int y;
 
@@ -36,5 +36,10 @@ public class Coordinate {
     @Override
     public String toString() {
         return "[" + this.x + ":" + this.y + "]";
+    }
+
+    @Override
+    public int compareTo(Coordinate c) {
+        return (this.x - c.x == 0) ? this.y - c.y : this.x - c.x;
     }
 }

@@ -10,7 +10,7 @@
 
     <form action="game" method="post">
       <p>Players Name:</p>
-        <input name="playerName">
+        <input name="playerName" autofocus>
         <input type="submit" value="addPlayer" name="addPlayer">
     </form>
     <table cellpadding="5" border="1">

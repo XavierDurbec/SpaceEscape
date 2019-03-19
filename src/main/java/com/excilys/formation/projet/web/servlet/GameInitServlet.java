@@ -1,10 +1,6 @@
 package com.excilys.formation.projet.web.servlet;
 
-import com.excilys.formation.projet.buissness.model.player.Player;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,7 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/GameInitServlet")
+//@WebServlet("/GameInitServlet")
 public class GameInitServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private List<String> players = new ArrayList<>();
