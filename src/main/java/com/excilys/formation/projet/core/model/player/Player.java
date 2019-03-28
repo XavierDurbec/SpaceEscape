@@ -4,6 +4,7 @@ import com.excilys.formation.projet.core.model.character.Character;
 
 import java.util.Objects;
 
+
 public class Player implements Comparable<Player>{
     private final String surname;
     private Character character;

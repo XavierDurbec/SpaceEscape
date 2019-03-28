@@ -4,39 +4,21 @@ import com.excilys.formation.projet.core.Game;
 import com.excilys.formation.projet.core.model.player.Player;
 import com.excilys.formation.projet.core.model.boardMap.BoardMap;
 import com.excilys.formation.projet.cli.GameServiceCLI;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Hello world!
- *
  */
-public class App 
-{
-    public static void main( String[] args )
-    {
-        BoardMap map = new BoardMap();
-        map.displayMap();
+@SpringBootApplication
 
-        Player omar = new Player("Omar");
-       // omar.setCharacter(new Engineer());
-        Player yan = new Player("Yan");
-        //yan.setCharacter(new Praetorian());
-        Player rached = new Player("Rached");
-       // rached.setCharacter(new Lurker());
-        Player sylvain = new Player("Sylvain");
-        //sylvain.setCharacter(new Soldier());
-        List<Player> players = new ArrayList<>();
-        players.add(omar);
-        players.add(yan);
-        players.add(rached);
-        players.add(sylvain);
+public class App {
 
 
-        Game game = new Game("test", players, new GameServiceCLI());
-
-        game.play();
-
+    public static void main(String[] args) {
+        SpringApplication.run(App.class, args);
     }
 }
