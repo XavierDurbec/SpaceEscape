@@ -1,12 +1,12 @@
-package com.excilys.formation.projet.buissness;
+package com.excilys.formation.projet.core;
 
-import com.excilys.formation.projet.buissness.exception.NoPlayerForThisCharacterException;
-import com.excilys.formation.projet.buissness.model.player.Player;
-import com.excilys.formation.projet.buissness.model.boardMap.*;
-import com.excilys.formation.projet.buissness.model.character.alien.*;
-import com.excilys.formation.projet.buissness.model.character.marine.*;
-import com.excilys.formation.projet.buissness.model.character.Character;
-import com.excilys.formation.projet.buissness.service.GameService;
+import com.excilys.formation.projet.core.exception.NoPlayerForThisCharacterException;
+import com.excilys.formation.projet.core.model.player.Player;
+import com.excilys.formation.projet.core.model.boardMap.*;
+import com.excilys.formation.projet.core.model.character.alien.*;
+import com.excilys.formation.projet.core.model.character.marine.*;
+import com.excilys.formation.projet.core.model.character.Character;
+import com.excilys.formation.projet.core.service.GameService;
 
 import java.util.*;
 import java.util.logging.Level;

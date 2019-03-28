@@ -1,4 +1,4 @@
-package com.excilys.formation.projet.buissness.model.character.alien;
+package com.excilys.formation.projet.core.model.character.alien;
 
 public class Lurker extends  Alien {
 

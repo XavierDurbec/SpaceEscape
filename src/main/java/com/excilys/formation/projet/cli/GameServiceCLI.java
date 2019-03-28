@@ -1,11 +1,10 @@
 package com.excilys.formation.projet.cli;
 
-import com.excilys.formation.projet.buissness.exception.BadParseException;
-import com.excilys.formation.projet.buissness.model.boardMap.BoardMap;
-import com.excilys.formation.projet.buissness.model.boardMap.Coordinate;
-import com.excilys.formation.projet.buissness.model.player.Player;
-import com.excilys.formation.projet.buissness.service.GameService;
-import com.excilys.formation.projet.buissness.model.character.Character;
+import com.excilys.formation.projet.core.exception.BadParseException;
+import com.excilys.formation.projet.core.model.boardMap.BoardMap;
+import com.excilys.formation.projet.core.model.boardMap.Coordinate;
+import com.excilys.formation.projet.core.model.player.Player;
+import com.excilys.formation.projet.core.service.GameService;
 
 import java.util.List;
 import java.util.Scanner;

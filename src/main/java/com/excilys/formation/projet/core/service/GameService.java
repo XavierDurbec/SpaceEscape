@@ -1,10 +1,8 @@
-package com.excilys.formation.projet.buissness.service;
+package com.excilys.formation.projet.core.service;
 
-import com.excilys.formation.projet.buissness.model.boardMap.BoardMap;
-import com.excilys.formation.projet.buissness.model.boardMap.Coordinate;
-import com.excilys.formation.projet.buissness.model.player.Player;
-
-import com.excilys.formation.projet.buissness.model.character.Character;
+import com.excilys.formation.projet.core.model.boardMap.BoardMap;
+import com.excilys.formation.projet.core.model.boardMap.Coordinate;
+import com.excilys.formation.projet.core.model.player.Player;
 
 import java.util.List;
 

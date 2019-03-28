@@ -1,12 +1,8 @@
-package com.excilys.formation.projet.buissness.model.boardMap;
+package com.excilys.formation.projet.core.model.boardMap;
 
-import com.excilys.formation.projet.buissness.model.player.Player;
-import com.excilys.formation.projet.buissness.model.character.Character;
-import com.excilys.formation.projet.buissness.model.character.alien.Lurker;
+import com.excilys.formation.projet.core.model.player.Player;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class BoardMap {

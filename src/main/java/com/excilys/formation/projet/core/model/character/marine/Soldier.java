@@ -1,4 +1,4 @@
-package com.excilys.formation.projet.buissness.model.character.marine;
+package com.excilys.formation.projet.core.model.character.marine;
 
 public class Soldier extends Marine {
 

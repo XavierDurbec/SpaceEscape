@@ -1,4 +1,4 @@
-package com.excilys.formation.projet.buissness.model.boardMap;
+package com.excilys.formation.projet.core.model.boardMap;
 
 public enum RoomType {
     SAFE("_"), UNSAFE("."), CONDEMNED("*"), MARINE_SPAWN("M"), ALIEN_SPAWN("A"), DEFICIENT_CAPSULE("H"), CAPSULE("O"), USED_CAPSULE("#");
