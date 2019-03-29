@@ -1,15 +1,30 @@
 package com.excilys.formation.projet.core.model.player;
 
 import com.excilys.formation.projet.core.model.character.Character;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 
-public class Player implements Comparable<Player>{
-    private final String surname;
+@Entity
+public class Player implements Comparable<Player>, Serializable {
+
+    @Id
+    @GeneratedValue( strategy = GenerationType.AUTO)
+    private Long id;
+
+    private String surname;
+
+    @Transient
     private Character character;
+    @Transient
     private boolean isAnIA;
+    @Transient
     private boolean haveWin;
+
+    public  Player (){};
 
     public Player(String surname) {
         this(surname, false);
@@ -65,5 +80,36 @@ public class Player implements Comparable<Player>{
     @Override
     public int compareTo(Player o) {
         return 0;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "id=" + id +
+                ", surname='" + surname + '\'' +
+                ", character=" + character +
+                ", isAnIA=" + isAnIA +
+                ", haveWin=" + haveWin +
+                '}';
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public boolean isHaveWin() {
+        return haveWin;
+    }
+
+    public void setHaveWin(boolean haveWin) {
+        this.haveWin = haveWin;
     }
 }
